@@ -25,6 +25,8 @@ class MyImages {
       Image.asset('lib/assets/images/equipment-img.png');
   static Image recordTemperature =
       Image.asset('lib/assets/images/card-temperature.png');
+  static Image fireCircleIcon =
+      Image.asset('lib/assets/images/fire-circle.png');
 }
 
 class EquipmentStatus {
