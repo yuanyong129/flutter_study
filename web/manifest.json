@@ -1,6 +1,6 @@
 {
-    "name": "baoquan_app",
-    "short_name": "baoquan_app",
+    "name": "flutter_demo",
+    "short_name": "flutter_demo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

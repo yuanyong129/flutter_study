@@ -1,61 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:baoquan_app/common/index.dart';
-import 'package:baoquan_app/pages/options.dart';
-import 'package:baoquan_app/pages/mine.dart';
+import '../components/login_top.dart';
+import '../common/text.dart';
 
-class HomePage extends StatefulWidget {
+TextClass textInstance = TextClass();
+
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    OptionsPage(),
-    MinePage()
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  // void initState() {
-  //   super.initState();
-  //   debugPrint('didChangeDependencies');
-  //   String token = '';
-  //   if (token.isEmpty || token == '') {
-  //     Future.delayed(const Duration(milliseconds: 100)).then((_) {
-  //       Navigator.pushReplacementNamed(context, 'login');
-  //     });
-  //   }
-  // }
-
+  // final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-              label: '设定',
-              icon: SizedBox(
-                  width: 21.5, height: 19, child: MyImages.optionsInactiveIcon),
-              activeIcon: SizedBox(
-                  width: 21.5, height: 19, child: MyImages.optionsActiveIcon)),
-          BottomNavigationBarItem(
-              label: '个人中心',
-              icon: SizedBox(
-                  width: 21.5, height: 19, child: MyImages.mineInavticeIcon),
-              activeIcon: SizedBox(
-                  width: 21.5, height: 19, child: MyImages.mineAvticeIcon))
-        ],
-      ),
-    );
+        /** 去掉appbar并防止溢出 */
+        appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.07),
+            child: const SafeArea(top: true, child: Offstage())),
+        // appBar: AppBar(
+        //   title: const Text(''),
+        // ),
+        body: Container(
+            alignment: Alignment.center,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const LoginTop(title: "您好", subtitle: "欢迎使用瑞星装车系统"),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Image.asset('lib/assets/images/start-page-img.jpg'),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Column(children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30))),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "login");
+                      },
+                      child: Text(textInstance.login)),
+                  MaterialButton(
+                      onPressed: () =>
+                          {Navigator.pushNamed(context, "register")},
+                      child: Text(textInstance.userRegister))
+                ]),
+              ),
+            ])));
   }
 }
