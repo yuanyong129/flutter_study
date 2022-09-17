@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:universal_platform/universal_platform.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
 import 'pages/register.dart';
 
 void main() {
-  bool isAndroid = UniversalPlatform.isAndroid;
-  if (isAndroid) {
-    // SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-    //   statusBarIconBrightness: Brightness.dark,
-    //   statusBarColor: Colors.transparent, //设置为透明
-    // );
-    // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
   runApp(const MyApp());
 }
 
@@ -24,9 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '瑞星',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
       routes: {
         "home": (context) => const HomePage(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruixing_app/common/theme.dart';
 import '../components/login_top.dart';
 import '../common/text.dart';
 
@@ -33,14 +34,21 @@ class HomePage extends StatelessWidget {
                 child: Column(children: [
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                          minimumSize: const Size(200, 40),
+                          primary: MainColors.primary,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
                       onPressed: () {
                         Navigator.pushNamed(context, "login");
                       },
                       child: Text(textInstance.login)),
-                  MaterialButton(
+                  OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(200, 40),
+                          primary: MainColors.primary,
+                          side: BorderSide(color: MainColors.primary),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30))),
                       onPressed: () =>
                           {Navigator.pushNamed(context, "register")},
                       child: Text(textInstance.userRegister))
