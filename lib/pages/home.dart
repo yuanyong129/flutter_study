@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ruixing_app/common/theme.dart';
-import '../components/login_top.dart';
+import 'package:ruixing_app/routes/routes.dart';
+import '../widgets/login_top.dart';
 import '../common/text.dart';
-
-TextClass textInstance = TextClass();
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,43 +17,44 @@ class HomePage extends StatelessWidget {
             preferredSize:
                 Size.fromHeight(MediaQuery.of(context).size.height * 0.07),
             child: const SafeArea(top: true, child: Offstage())),
-        // appBar: AppBar(
-        //   title: const Text(''),
-        // ),
-        body: Container(
-            alignment: Alignment.center,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const LoginTop(title: "您好", subtitle: "欢迎使用瑞星装车系统"),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Image.asset('lib/assets/images/start-page-img.jpg'),
-              ),
-              Container(
+        body: SingleChildScrollView(
+            child: Container(
                 alignment: Alignment.center,
-                child: Column(children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(200, 40),
-                          primary: MainColors.primary,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30))),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "login");
-                      },
-                      child: Text(textInstance.login)),
-                  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(200, 40),
-                          primary: MainColors.primary,
-                          side: BorderSide(color: MainColors.primary),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30))),
-                      onPressed: () =>
-                          {Navigator.pushNamed(context, "register")},
-                      child: Text(textInstance.userRegister))
-                ]),
-              ),
-            ])));
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LoginTop(
+                          title: TextClass.hello,
+                          subtitle: TextClass.welcomeUseTheSystem),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20.w, 0, 20.w),
+                        child:
+                            Image.asset('lib/assets/images/start-page-img.jpg'),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Column(children: [
+                          /// the login button
+                          ElevatedButton(
+                              style: MainStyles.primaryButtonStyle,
+                              onPressed: () {
+                                Navigator.pushNamed(context, RoutesName.login);
+                              },
+                              child: Text(TextClass.login)),
+
+                          /// the register button
+                          Container(
+                            margin: EdgeInsets.only(top: 20.w),
+                            child: OutlinedButton(
+                                style: MainStyles.primaryOutlinedButtonStyle,
+                                onPressed: () => {
+                                      Navigator.pushNamed(
+                                          context, RoutesName.register)
+                                    },
+                                child: Text(TextClass.userRegister)),
+                          )
+                        ]),
+                      ),
+                    ]))));
   }
 }

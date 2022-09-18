@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ruixing_app/components/login_top.dart';
+import 'package:ruixing_app/common/theme.dart';
+import 'package:ruixing_app/routes/routes.dart';
+import 'package:ruixing_app/widgets/login_top.dart';
 import 'package:ruixing_app/common/text.dart';
 import 'package:ruixing_app/utils/http.dart';
 
-TextClass textInstance = TextClass();
 HttpUtil httpUtil = HttpUtil();
 
 class LoginPage extends StatefulWidget {
@@ -48,12 +49,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(textInstance.login),
+          title: Text(TextClass.login),
         ),
         body: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const LoginTop(title: "您好", subtitle: "欢迎使用瑞星装车系统"),
+          LoginTop(
+              title: TextClass.hello, subtitle: TextClass.welcomeUseTheSystem),
           Padding(
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
               child: Form(
@@ -88,19 +90,20 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.center,
             child: Column(children: [
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30))),
+                  style: MainStyles.primaryButtonStyle,
                   onPressed: () {
                     debugPrint(
                         "登录表单 手机号：${_loginForm['phonenumber']}，密码：${_loginForm['password']}");
                     login();
                   },
-                  child: Text(textInstance.login)),
+                  child: Text(TextClass.login)),
               MaterialButton(
-                  onPressed: () => {debugPrint('点击了注册')},
-                  child: Text(textInstance.gotoRegister))
+                  onPressed: () =>
+                      {Navigator.pushNamed(context, RoutesName.register)},
+                  child: Text(TextClass.gotoRegister,
+                      style: TextStyle(
+                          color: MainColors.colorFF666F83,
+                          fontSize: MainFontSize.fs28)))
             ]),
           ),
         ])));

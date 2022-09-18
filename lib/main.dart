@@ -1,7 +1,6 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
-import 'pages/home.dart';
-import 'pages/login.dart';
-import 'pages/register.dart';
+import 'package:ruixing_app/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +11,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '瑞星',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
-      routes: {
-        "home": (context) => const HomePage(),
-        "login": (context) => const LoginPage(),
-        "register": (context) => const RegisterPage()
-      },
-    );
+    return ScreenUtilInit(
+        designSize: const Size(750, 1624),
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: '瑞星',
+            theme: ThemeData(primarySwatch: Colors.blue),
+            initialRoute: RoutesName.home,
+            routes: routes,
+          );
+        });
   }
 }
 

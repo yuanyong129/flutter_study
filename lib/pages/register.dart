@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../components/login_top.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ruixing_app/common/theme.dart';
+import 'package:ruixing_app/routes/routes.dart';
+import '../widgets/login_top.dart';
 import 'package:ruixing_app/common/text.dart';
-
-TextClass textInstance = TextClass();
 
 class RegisterForm {
   String? dirverName = ''; // 司机名称
@@ -36,84 +37,104 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(textInstance.userRegister),
+          title: Text(TextClass.userRegister),
         ),
         body: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const LoginTop(
-              title: "完善信息 成为司机", subtitle: "欢迎你注册成为司机\n你的信息我们会严格保密，请放心填写"),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-              child: Form(
-                  child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: '请输入司机姓名：',
-                      hintText: '请输入司机姓名',
-                    ),
-                    onChanged: (String? value) {
-                      _registerForm.dirverName = value;
-                    },
-                  ),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '请输入手机号：',
-                        hintText: '请输入手机号',
+            child: Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                      Color.fromRGBO(224, 238, 253, 1),
+                      Color.fromRGBO(245, 250, 255, 1)
+                    ])),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const LoginTop(
+                          title: "完善信息 成为司机",
+                          subtitle: "欢迎你注册成为司机\n你的信息我们会严格保密，请放心填写"),
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                          child: Form(
+                              child: Column(
+                            children: [
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: '请输入司机姓名：',
+                                  hintText: '请输入司机姓名',
+                                ),
+                                onChanged: (String? value) {
+                                  _registerForm.dirverName = value;
+                                },
+                              ),
+                              TextFormField(
+                                  decoration: const InputDecoration(
+                                    labelText: '请输入手机号：',
+                                    hintText: '请输入手机号',
+                                  ),
+                                  onChanged: (String? value) {
+                                    _registerForm.phoneNumber = value;
+                                  }),
+                              TextFormField(
+                                  decoration: const InputDecoration(
+                                    labelText: '请输入身份证号：',
+                                    hintText: '请输入身份证号',
+                                  ),
+                                  onChanged: (String? value) {
+                                    _registerForm.cardNumber = value;
+                                  }),
+                              TextFormField(
+                                  decoration: const InputDecoration(
+                                    labelText: '请输入所属公司：',
+                                    hintText: '请输入所属公司',
+                                  ),
+                                  onChanged: (String? value) {
+                                    _registerForm.companyName = value;
+                                  }),
+                              TextFormField(
+                                  decoration: const InputDecoration(
+                                    labelText: '请输入车牌号：',
+                                    hintText: '请输入车牌号',
+                                  ),
+                                  onChanged: (String? value) {
+                                    _registerForm.carNo = value;
+                                  }),
+                              TextFormField(
+                                  decoration: const InputDecoration(
+                                    labelText: '请输入车型：',
+                                    hintText: '请输入车型',
+                                  ),
+                                  onChanged: (String? value) {
+                                    _registerForm.carType = value;
+                                  }),
+                              TextButton(
+                                  onPressed: () {}, child: const Text("上传驾驶证")),
+                            ],
+                          ))),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Column(children: [
+                          ElevatedButton(
+                              style: MainStyles.primaryButtonStyle,
+                              onPressed: () {
+                                _registerForm.print();
+                              },
+                              child: Text(TextClass.register)),
+                          Padding(
+                              padding: EdgeInsets.only(top: 20.w, bottom: 20.w),
+                              child: MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesName.login);
+                                  },
+                                  child: Text(TextClass.hadAccount,
+                                      style: TextStyle(
+                                          color: MainColors.colorFF666F83,
+                                          fontSize: MainFontSize.fs28))))
+                        ]),
                       ),
-                      onChanged: (String? value) {
-                        _registerForm.phoneNumber = value;
-                      }),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '请输入身份证号：',
-                        hintText: '请输入身份证号',
-                      ),
-                      onChanged: (String? value) {
-                        _registerForm.cardNumber = value;
-                      }),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '请输入所属公司：',
-                        hintText: '请输入所属公司',
-                      ),
-                      onChanged: (String? value) {
-                        _registerForm.companyName = value;
-                      }),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '请输入车牌号：',
-                        hintText: '请输入车牌号',
-                      ),
-                      onChanged: (String? value) {
-                        _registerForm.carNo = value;
-                      }),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '请输入车型：',
-                        hintText: '请输入车型',
-                      ),
-                      onChanged: (String? value) {
-                        _registerForm.carType = value;
-                      }),
-                  TextButton(onPressed: () {}, child: const Text("上传驾驶证")),
-                ],
-              ))),
-          Container(
-            alignment: Alignment.center,
-            child: Column(children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30))),
-                  onPressed: () {
-                    _registerForm.print();
-                  },
-                  child: Text(textInstance.register)),
-            ]),
-          ),
-        ])));
+                    ]))));
   }
 }
