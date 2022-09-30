@@ -6,8 +6,47 @@ import 'package:ruixing_app/routes/routes.dart';
 import 'package:ruixing_app/widgets/login_top.dart';
 import 'package:ruixing_app/common/text.dart';
 import 'package:ruixing_app/utils/http.dart';
+import 'package:ruixing_app/widgets/toast.dart';
 
 HttpUtil httpUtil = HttpUtil();
+
+class LoginForm {
+  String? username;
+  String? password;
+  String? code = 'g57c';
+  String? uuid = '23d148f9761d45608f244f3fc02588bc';
+  String? clientId = 'chambroad-pc';
+  String? clientSecret = '123456';
+  bool overridden = true;
+
+  bool validate(BuildContext context) {
+    if (username == null || username!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(toast('请输入手机号码'));
+      return false;
+    }
+    if (password == null || password!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(toast('请输入登录密码'));
+      return false;
+    }
+    return true;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'password': password,
+      'code': code,
+      'uuid': uuid,
+      'client_id': clientId,
+      'client_secret': clientSecret,
+      'overridden': overridden
+    };
+  }
+
+  void print() {
+    debugPrint(toMap().toString());
+  }
+}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,21 +56,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final Map<String, dynamic> _loginForm = {
-    'username': '',
-    'password': '',
-    'code': 'g57c',
-    'uuid': '23d148f9761d45608f244f3fc02588bc',
-    'client_id': 'chambroad-pc',
-    'client_secret': '123456',
-    'overridden': true
-  };
+  final LoginForm _loginForm = LoginForm();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // 密码是否展示
   bool _isPwd = true;
-  bool _isRememberPassword = false;
+  bool _isRememberPassword = true;
 
   void _changePwdShow() {
     setState(() {
@@ -39,27 +70,22 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void showToast() {}
-
   void login(BuildContext context) async {
     try {
-      if (_loginForm['username'] == null || _loginForm['username'].isEmpty) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('请输入手机号码')));
-        return;
-      }
-      if (_loginForm['password'] == null || _loginForm['password'].isEmpty) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('请输入密码')));
-        return;
-      }
-
-      Map<String, dynamic> response = await httpUtil.request('/auth/login',
-          method: DioMethod.post, data: {}, params: _loginForm);
-      debugPrint(response['data']['access_token']);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: RoutesName.getRouteBuilder(RoutesName.home)),
+          (route) => false);
+      // if (!_loginForm.validate(context)) {
+      //   return;
+      // }
+      // Map<String, dynamic> response = await httpUtil.request('/auth/login',
+      //     method: DioMethod.post, data: {}, params: _loginForm.toMap());
+      // debugPrint(response['data']['access_token']);
     } catch (e) {
       debugPrint(e.toString());
-    }
+    } finally {}
   }
 
   @override
@@ -88,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: MyImages.userIcon,
                         hintText: '请输入手机号码',
                         onChanged: (String? username) {
-                          _loginForm['username'] = username;
+                          _loginForm.username = username;
                         },
                       ),
                       LoginInputWidget(
@@ -98,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           icon: MyImages.passwordIcon,
                           hintText: '请输入登录密码',
                           onChanged: (String? password) {
-                            _loginForm['password'] = password;
+                            _loginForm.password = password;
                           },
                           suffix: GestureDetector(
                             onTap: _changePwdShow,
@@ -124,7 +150,9 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Align(
                                     alignment: Alignment.centerRight,
                                     child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showForgetPasswordDialog(context);
+                                        },
                                         child: const Text('忘记密码?'))))
                           ])
                     ],
@@ -155,8 +183,6 @@ class _LoginPageState extends State<LoginPage> {
         ])));
   }
 }
-
-final loginLabelStyle = TextStyle(fontSize: 32.w);
 
 class LoginInputWidget extends StatelessWidget {
   const LoginInputWidget(
@@ -198,20 +224,66 @@ class LoginInputWidget extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Text(
                 title,
-                style: loginLabelStyle,
+                style: CustomTextStyles.primaryLabelStyle,
               )),
           Expanded(
-              child: TextFormField(
-            cursorColor: MainColors.primary,
-            obscureText: obscureText,
-            onChanged: onChanged,
-            decoration: InputDecoration(
-                hintText: hintText,
-                border: InputBorder.none,
-                suffixIcon: suffix),
-          ))
+            child: TextFormField(
+              cursorColor: MainColors.primary,
+              obscureText: obscureText,
+              onChanged: onChanged,
+              decoration: InputDecoration(
+                  hintText: hintText,
+                  border: InputBorder.none,
+                  suffixIcon: suffix),
+            ),
+          ),
         ],
       ),
     );
   }
+}
+
+// show the forget password dialog, warning the user contact the admininstrator to change the password
+void showForgetPasswordDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30.w)),
+      ),
+      content: SizedBox(
+        width: 630.w,
+        height: 696.w,
+        child: Flex(
+          direction: Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 300.w,
+              height: 300.w,
+              child: MyImages.contactServices,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 36.w, bottom: 36.w),
+              child: Text(
+                '忘记密码?',
+                style: TextStyle(
+                  fontSize: MainFontSize.fs52,
+                  fontWeight: FontWeight.w500,
+                  color: MainColors.colorFF111A34,
+                ),
+              ),
+            ),
+            Text(
+              '请联系管理员，重置密码',
+              style: TextStyle(
+                fontSize: MainFontSize.fs28,
+                color: MainColors.colorFF858C9C,
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }

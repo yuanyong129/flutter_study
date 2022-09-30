@@ -42,7 +42,8 @@ class MainFontSize {
   static var fs48 = 48.w;
   static var fs40 = 40.w;
   static var fs36 = 36.w;
-  static var fs32 = 32.w;
+  static var fs32 = 32.sp;
+  static var fs30 = 30.sp;
   static var fs28 = 28.w;
   static var fs26 = 26.w;
   static var fs24 = 24.w;

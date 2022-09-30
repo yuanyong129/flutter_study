@@ -6,4 +6,6 @@ class MyImages {
       Image.asset('lib/assets/images/start-page-img.jpg');
   static Image userIcon = Image.asset('lib/assets/images/user.png');
   static Image passwordIcon = Image.asset('lib/assets/images/password.png');
+  static Image contactServices =
+      Image.asset('lib/assets/images/contact-services.png');
 }

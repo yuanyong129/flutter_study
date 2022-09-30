@@ -2,7 +2,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:ruixing_app/common/theme.dart';
 import 'package:ruixing_app/routes/routes.dart';
-// import 'package:ruixing_app/utils/color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +21,8 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
                 // primarySwatch: createMaterialColor(MainColors.primary),
                 primaryColor: MainColors.primary),
-            initialRoute: RoutesName.home,
-            routes: routes,
+            initialRoute: RoutesName.start,
+            routes: RoutesName.getRoutesMap(),
           );
         });
   }

@@ -5,8 +5,8 @@ import 'package:ruixing_app/routes/routes.dart';
 import '../widgets/login_top.dart';
 import '../common/text.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class StartPage extends StatelessWidget {
+  const StartPage({Key? key}) : super(key: key);
 
   // final String title;
   @override
