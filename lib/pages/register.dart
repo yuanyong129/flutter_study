@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ruixing_app/common/enum.dart';
 import 'package:ruixing_app/common/theme.dart';
 import 'package:ruixing_app/routes/routes.dart';
@@ -155,6 +156,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               CommonListItem(
                                 labelWidth: 270.w,
                                 labelText: '请上传驾驶证：',
+                                margin:
+                                    EdgeInsets.only(top: 10.w, bottom: 20.w),
                                 suffix: Align(
                                   alignment: Alignment.centerRight,
                                   child: TextButton(
@@ -191,8 +194,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             padding: EdgeInsets.only(top: 20.w, bottom: 20.w),
                             child: MaterialButton(
                                 onPressed: () {
-                                  Navigator.popAndPushNamed(
-                                      context, RoutesName.login);
+                                  GoRouter.of(context)
+                                      .replace(RoutesName.login);
                                 },
                                 child: Text(TextClass.hadAccount,
                                     style: TextStyle(

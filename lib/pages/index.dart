@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ruixing_app/common/enum.dart';
-import 'package:ruixing_app/pages/home/customer.dart';
-import 'package:ruixing_app/pages/home/driver.dart';
+import 'package:ruixing_app/pages/customer/home.dart';
+import 'package:ruixing_app/pages/driver/home.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class IndexPage extends StatefulWidget {
+  const IndexPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => HomePageState();
+  State<IndexPage> createState() => IndexPageState();
 }
 
-class HomePageState extends State<HomePage> {
+class IndexPageState extends State<IndexPage> {
   var _current = RoleType.customer;
   @override
   void initState() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ruixing_app/common/theme.dart';
 import 'package:ruixing_app/routes/routes.dart';
 import '../widgets/login_top.dart';
@@ -35,7 +36,7 @@ class StartPage extends StatelessWidget {
               ElevatedButton(
                   style: MainStyles.primaryButtonStyle,
                   onPressed: () {
-                    Navigator.pushNamed(context, RoutesName.login);
+                    GoRouter.of(context).go(RoutesName.login);
                   },
                   child: Text(TextClass.login)),
 
@@ -45,7 +46,7 @@ class StartPage extends StatelessWidget {
                 child: OutlinedButton(
                     style: MainStyles.primaryOutlinedButtonStyle,
                     onPressed: () =>
-                        {Navigator.pushNamed(context, RoutesName.register)},
+                        {GoRouter.of(context).go(RoutesName.register)},
                     child: Text(TextClass.userRegister)),
               )
             ]),

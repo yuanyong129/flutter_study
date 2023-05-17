@@ -24,15 +24,15 @@ class MainColors {
 class MainStyles {
   static ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
       minimumSize: Size(670.w, 100.w),
-      primary: MainColors.primary,
+      // primary: MainColors.primary,
       textStyle: TextStyle(fontSize: MainFontSize.fs36),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.w)));
 
   static ButtonStyle primaryOutlinedButtonStyle = OutlinedButton.styleFrom(
       minimumSize: Size(670.w, 100.w),
-      primary: MainColors.primary,
+      // primary: MainColors.primary,
       textStyle: TextStyle(fontSize: MainFontSize.fs36),
-      side: BorderSide(color: MainColors.primary),
+      // side: BorderSide(color: MainColors.primary),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.w)));
 }
 

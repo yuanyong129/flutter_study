@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ruixing_app/common/image.dart';
 import 'package:ruixing_app/common/theme.dart';
 import 'package:ruixing_app/routes/routes.dart';
@@ -72,14 +73,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(BuildContext context) async {
     try {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: RoutesName.getRouteBuilder(RoutesName.home)),
-          (route) => false);
-      // if (!_loginForm.validate(context)) {
-      //   return;
-      // }
+      if (!_loginForm.validate(context)) {
+        return;
+      } else {
+        GoRouter.of(context).replace(RoutesName.index);
+      }
       // Map<String, dynamic> response = await httpUtil.request('/auth/login',
       //     method: DioMethod.post, data: {}, params: _loginForm.toMap());
       // debugPrint(response['data']['access_token']);
@@ -169,10 +167,8 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 margin: EdgeInsets.only(top: 0.01.sh),
                 child: MaterialButton(
-                    onPressed: () => {
-                          Navigator.popAndPushNamed(
-                              context, RoutesName.register)
-                        },
+                    onPressed: () =>
+                        {GoRouter.of(context).replace(RoutesName.register)},
                     child: Text(TextClass.gotoRegister,
                         style: TextStyle(
                             color: MainColors.colorFF666F83,

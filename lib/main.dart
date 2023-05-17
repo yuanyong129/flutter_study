@@ -15,14 +15,16 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(750, 1624),
         builder: (context, child) {
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: '瑞星',
             theme: ThemeData(
+                useMaterial3: true,
                 // primarySwatch: createMaterialColor(MainColors.primary),
                 primaryColor: MainColors.primary),
-            initialRoute: RoutesName.start,
-            routes: RoutesName.getRoutesMap(),
+            routeInformationProvider: MyRouter.router.routeInformationProvider,
+            routeInformationParser: MyRouter.router.routeInformationParser,
+            routerDelegate: MyRouter.router.routerDelegate,
           );
         });
   }

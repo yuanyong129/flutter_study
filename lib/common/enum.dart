@@ -25,7 +25,7 @@ class ToastType {
   }
 }
 
-class RoleType {
-  static var customer = '1';
-  static var driver = '2';
+enum RoleType {
+  customer,
+  driver,
 }
